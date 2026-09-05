@@ -1,13 +1,27 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Trimex Colleges — Student Portal Mini-Site
+## WEBDEV3 Week 4: Controllers and Views Lab Exercise Build
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project implements **Lab Exercise 4 — Controllers-and-Views Build** according to the Week 4 student curriculum requirements.
 
-## About Laravel
+### Key Architecture Features
+1. **Zero Closures in `routes/web.php`:**
+   - `GET /` &rarr; `HomeController@index` (named `home`)
+   - `GET /about` &rarr; `AboutController@index` (named `about`)
+   - `GET /contact` &rarr; `ContactController` (invokable, named `contact`)
+   - `Route::resource('courses', CourseController::class)` with 7 RESTful actions (`index`, `create`, `store`, `show`, `edit`, `update`, `destroy`)
+2. **Middleware Pipeline:**
+   - `EnsureEnrollmentActive` custom middleware applied to course operations (`courses.create`) and registered as an alias in `bootstrap/app.php`.
+3. **Blade Architecture:**
+   - Component-based layout `<x-layout title="...">` (`resources/views/components/layout.blade.php`) supporting primary slot `{{ $slot }}` and named slot `<x-slot:aside>`.
+   - Reusable partials via `@include`: `partials/nav.blade.php` (with active route highlighting via `request()->routeIs()`) and `partials/footer.blade.php`.
+   - Anonymous component `<x-course-card>` (`resources/views/components/course-card.blade.php`) declaring `@props`, merging `$attributes`, and slot checking.
+   - Class-based component `<x-alert>` (`App\View\Components\Alert`) with PHP 8 match expression method `cssClass()` and icon helpers.
+4. **Clean Route Links:**
+   - 100% of internal links generated via the `route()` helper (e.g. `route('courses.show', $course['code'])`).
+
+---
+
+
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
